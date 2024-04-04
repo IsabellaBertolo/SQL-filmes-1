@@ -10,31 +10,52 @@ ALTER TABLE ENTRETERIMENTO
 ADD COLUMN RANKING_NOME VARCHAR(50);
 
 -- Add filmes da netflix, amazon e etc.
+ALTER TABLE ENTRETERIMENTO ADD COLUMN NACIONALIDADE VARCHAR(50);
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Estados Unidos';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Brasil' WHERE NOME = 'Cidade de Deus';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Brasil' WHERE NOME = 'Tropa de Elite';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Brasil' WHERE NOME = 'Central do Brasil';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Brasil' WHERE NOME = 'O Auto da Compadecida';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Espanha' WHERE NOME = 'La Casa de Papel';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Irlanda/Canadá' WHERE NOME = 'Vikings';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Espanha' WHERE NOME = 'Money Heist';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Polônia/Estados Unidos' WHERE NOME = 'The Witcher';
+UPDATE ENTRETERIMENTO SET NACIONALIDADE = 'Estados Unidos/Alemanha' WHERE NOME = 'Bastardos Inglórios';
+ALTER TABLE ENTRETERIMENTO ADD COLUMN RANKING INT;
+ALTER TABLE ENTRETERIMENTO ADD COLUMN RANKING_TIPO VARCHAR(50);
+ALTER TABLE ENTRETERIMENTO ADD COLUMN RANKING_NOME VARCHAR(50);
+INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING, RANKING_TIPO, RANKING_NOME) VALUES 
+('O Mundo Depois de Nós', 'FILME', 'Todd Phillips', 'Julia Roberts', 'Julia Roberts', 2023, 120, '16+', 'Suspense', 'Estados Unidos', 1, 'NETFLIX', 'NETFLIX'),
+('O Maestro', 'FILME', 'Todd Haynes', 'Timothée Chalamet', 'Rachel Zegler', 2023, 130, '16+', 'Drama', 'Estados Unidos', 2, 'NETFLIX', 'NETFLIX'),
+('O Assassino', 'FILME', 'David Fincher', 'Benedict Cumberbatch', 'Cate Blanchett', 2023, 140, '18+', 'Crime', 'Estados Unidos', 1, 'AMAZON PRIME', 'AMAZON PRIME'),
+('A Fuga das Galinhas: A Ameaça dos Nuggets', 'FILME', 'Peter Avanzino', 'Josh Gad', 'Leslie Mann', 2023, 90, '12+', 'Comédia', 'Estados Unidos', 2, 'AMAZON PRIME', 'AMAZON PRIME');
+('Amsterdam', 'FILME', 'David O. Russell', 'Christian Bale', 'Margot Robbie', 2022, 120, '0', 'Drama, História, Comédia', 'Estados Unidos', 1, 'HBO MAX', 'HBO MAX'),
+('Wonka', 'FILME', 'Não especificado', 'Timothee Chalamet', 'Não especificado', 2023, 100, '0', 'Aventura, Família, Fantasia', 'Estados Unidos', 2, 'HBO MAX', 'HBO MAX');
+UPDATE ENTRETERIMENTO
+SET RANKING_NOME = 'Netflix'
+WHERE NOME IN ('Stranger Things', 'Black Mirror', 'Inception', 'Breaking Bad', 'Friends', 'The Dark Knight', 'The Shawshank Redemption', 'Kill Bill: Volume 1', 'Entrevista com o Vampiro', 'Sr. e Sra. Smith', 'Money Heist (La Casa de Papel)', 'The Witcher');
+UPDATE ENTRETERIMENTO
+UPDATE ENTRETERIMENTO
+SET RANKING_NOME = 'HBO Max'
+WHERE RANKING_NOME IS NULL;
+UPDATE ENTRETERIMENTO
+SET RANKING_TIPO = CASE 
+                        WHEN NOME IN ('Breaking Bad', 'Friends', 'The Matrix', 'The Dark Knight', 'The Shawshank Redemption', 'Kill Bill: Volume 1', 'Interview with the Vampire', 'Mr. & Mrs. Smith', 'Money Heist') THEN 'Nacional'
+                        WHEN NOME IN ('Forrest Gump', 'Fight Club', 'Vikings', 'Pulp Fiction', 'The Godfather', 'Bastardos Inglórios', 'Tropa de Elite', 'Central do Brasil') THEN 'Nacional'
+                        ELSE 'Mundial'
+                  END;
+UPDATE Entreterimento
+SET RANKING = CASE 
+                WHEN NOME IN ('Breaking Bad', 'Friends', 'The Dark Knight', 'The Shawshank Redemption', 'The Matrix', 'Interview with the Vampire', 'Kill Bill: Volume 1', 'Mr. & Mrs. Smith', 'Money Heist') THEN 1
+                ELSE RANKING
+            END
+WHERE NOME IN ('Breaking Bad', 'Friends', 'The Dark Knight', 'The Shawshank Redemption', 'The Matrix', 'Interview with the Vampire', 'Kill Bill: Volume 1', 'Mr. & Mrs. Smith', 'Money Heist');
 
-INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING_NOME, RANKING_TIPO)
-VALUES 
-('Dark', 'SÉRIE', 'Baran bo Odar', 'Louis Hofmann', 'Lisa Vicari', 2017, 60, '16+', 'Thriller', 'Alemanha', 'Netflix', 'Mundial');
-
-INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING_NOME, RANKING_TIPO)
-VALUES 
-('Roma', 'FILME', 'Alfonso Cuarón', 'Yalitza Aparicio', 'Marina de Tavira', 2018, 135, '16+', 'Thriller/Drama', 'México', 'Netflix', 'Mundial');
-
-INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING_NOME, RANKING_TIPO)
-VALUES 
-('The Boys', 'SÉRIE', 'Eric Kripke', 'Karl Urban', 'Elisabeth Shue', 2019, 55, '18+', 'Ação', 'Estados Unidos', 'Amazon Prime', 'Mundial');
-
-INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING_NOME, RANKING_TIPO)
-VALUES 
-('The Grand Tour', 'SÉRIE', 'Jeremy Clarkson', 'Jeremy Clarkson', 'Richard Hammond', 2016, 60, '14+', 'Comédia', 'Reino Unido', 'Amazon Prime', 'Mundial');
-
-INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING_NOME, RANKING_TIPO)
-VALUES 
-('Cidade de Deus', 'FILME', 'Fernando Meirelles', 'Alexandre Rodrigues', 'Alice Braga', 2002, 130, '18+', 'Crime/Drama', 'Brasil', 'Meu Rank', 'Nacional');
-
-INSERT INTO ENTRETERIMENTO (NOME, TIPO, DIRETOR, ATOR_PRINCIPAL, ATRIZ_PRINCIPAL, ANO_LANCAMENTO, DURACAO_MINUTOS, CLASSIFICACAO_ETARIA, GENERO, NACIONALIDADE, RANKING_NOME, RANKING_TIPO)
-VALUES 
-('O Auto da Compadecida', 'FILME', 'Guel Arraes', 'Matheus Nachtergaele', 'Denise Fraga', 2000, 104, '12+', 'Comédia/Drama', 'Brasil', 'Meu Rank', 'Nacional');
-
+UPDATE Entreterimento
+SET RANKING = CASE 
+                WHEN NOME IN ('Pulp Fiction', 'Fight Club', 'The Godfather', 'Forrest Gump', 'Bastardos Inglórios', 'Central do Brasil', 'Vikings', 'Tropa de Elite') THEN 2
+                ELSE RANKING
+            END
 
 
 UPDATE ENTRETERIMENTO SET RANKING_NOME = 'NETFLIX' WHERE RANKING_NOME IS NULL;
@@ -50,3 +71,9 @@ ORDER BY RAND(); -- Ordena aleatoriamente os registros
 -- Atualiza o campo RANKING_TIPO para indicar que é um ranking aleatório
 UPDATE ENTRETERIMENTO
 SET RANKING_TIPO = 'Aleatório';
+    CASE 
+        WHEN NOME IN ('Breaking Bad', 'Friends', 'The Dark Knight', 'The Shawshank Redemption', 'The Matrix', 'Interview with the Vampire', 'Kill Bill: Volume 1', 'Mr. & Mrs. Smith', 'Money Heist') THEN 1
+        WHEN NOME IN ('Pulp Fiction', 'Fight Club', 'The Godfather', 'Forrest Gump', 'Bastardos Inglórios', 'Central do Brasil', 'Vikings', 'Tropa de Elite') THEN 2
+        WHEN NOME IN ('The Irishman', 'Inception', 'Cidade de Deus', 'The Witcher') THEN 3
+        ELSE 15
+    END;
